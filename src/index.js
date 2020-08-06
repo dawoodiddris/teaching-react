@@ -1,17 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDom from 'react-dom'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class Message extends React.Component
+{
+  render()
+  {
+    return (
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+      <div>
+          <p><b>{this.props.email}</b></p>
+          <h3>{this.props.subject}</h3>
+           <p>Dear {this.props.name}</p>
+          <p>{this.props.body}</p>
+      </div>
+
+    )
+  }
+}
+
+function Guess(props)
+{
+  return <h1>{props.greet}</h1>
+}
+
+// ReactDom.render(<Message 
+//                  email='dawoodiddris@gmail.com' 
+//                  subject='Greetings from the NIL' 
+//                  name='Jane'
+//                  body='I am a simple boy, you simplify the simplication...
+//                  '/>, document.getElementById('root'))
+
+ReactDom.render(<Guess greet='Good Bye'/>,document.getElementById('root'))
+
