@@ -1,34 +1,42 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 
-class Message extends React.Component
-{
-  render()
+class Clock extends React.Component{ 
+
+  constructor(props)
   {
-    return (
-
-      <div>
-          <p><b>{this.props.email}</b></p>
-          <h3>{this.props.subject}</h3>
-           <p>Dear {this.props.name}</p>
-          <p>{this.props.body}</p>
-      </div>
-
-    )
+     super(props); // this.state = this.props
+     this.state = {date: new Date()}
   }
+
+  componentDidMount(){
+
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+
+  }
+
+  componentWillUnmount()
+  {
+     clearInterval(this.timerID)
+  }
+
+  tick() {
+    this.setState({
+      date: new Date()
+    });
+  }
+
+  render(){
+    return <h1>{this.state.date.toLocaleTimeString()}</h1> 
+  }
+
 }
 
-function Guess(props)
-{
-  return <h1>{props.greet}</h1>
-}
+ReactDom.render(<Clock />, document.getElementById('root'))
 
-// ReactDom.render(<Message 
-//                  email='dawoodiddris@gmail.com' 
-//                  subject='Greetings from the NIL' 
-//                  name='Jane'
-//                  body='I am a simple boy, you simplify the simplication...
-//                  '/>, document.getElementById('root'))
 
-ReactDom.render(<Guess greet='Good Bye'/>,document.getElementById('root'))
+
 
