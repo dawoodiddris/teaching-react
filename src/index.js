@@ -1,42 +1,38 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import axios from 'axios'
 
-class Clock extends React.Component{ 
+class Person extends React.Component
+{
 
-  constructor(props)
+  state = { Persons: [] }
+
+  componentDidMount()
   {
-     super(props); // this.state = this.props
-     this.state = {date: new Date()}
+
+      axios.get(`https://jsonplaceholder.typicode.com/users`)
+           .then(res => {
+               const Persons = res.data
+
+              console.log(Persons)
+
+               this.setState({Persons})
+           })
+           .catch(error => {}) 
   }
 
-  componentDidMount(){
 
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
 
-  }
-
-  componentWillUnmount()
-  {
-     clearInterval(this.timerID)
-  }
-
-  tick() {
-    this.setState({
-      date: new Date()
-    });
-  }
-
-  render(){
-    return <h1>{this.state.date.toLocaleTimeString()}</h1> 
-  }
-
+   render()
+   {
+     return (
+       <div>
+           <ul className="list-group">
+     { this.state.Persons.map(person => <li className="list-group-item">{person.name}</li>) }
+           </ul>
+       </div>
+     )
+   }
 }
 
-ReactDom.render(<Clock />, document.getElementById('root'))
-
-
-
-
+ReactDom.render(<Person />, document.getElementById('root'))
